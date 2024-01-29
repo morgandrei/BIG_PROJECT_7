@@ -12,7 +12,7 @@ class Habits(models.Model):
         WEEKLY = 'weekly', 'Ежемесячно'
         CUSTOM = 'monthly', 'Настраиваемое'
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')  # Создатель привычки.
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')  # Создатель привычки.
     place = models.CharField(max_length=25, verbose_name='место выполнения привычки')
     timing = models.TimeField(verbose_name='время выполнения привычки')
     action = models.CharField(max_length=100, verbose_name='действие')
