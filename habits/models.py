@@ -1,3 +1,4 @@
+import datetime
 from datetime import timedelta
 from django.db import models
 from users.models import User, NULLABLE
@@ -7,8 +8,8 @@ class Habits(models.Model):
 
     class Frequency(models.TextChoices):
         DAILY = 'daily', 'Ежедневно'
-        WEEKLY = 'weekly', 'Ежемесячно'
-        CUSTOM = 'monthly', 'Настраиваемое'
+        WEEKLY = 'monthly', 'Ежемесячно'
+        CUSTOM = 'custom', 'Настраиваемое'
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')  # Создатель привычки.
     place = models.CharField(max_length=25, verbose_name='место выполнения привычки')

@@ -6,8 +6,8 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'  # Указываем поля для сериализации
-
+#        fields = '__all__'  # Указываем поля для сериализации
+        fields = ['email']
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
