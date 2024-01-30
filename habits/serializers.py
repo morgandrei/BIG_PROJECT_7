@@ -6,3 +6,5 @@ class HabitsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habits
         fields = '__all__'
+
+

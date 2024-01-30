@@ -2,14 +2,10 @@ from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
 
-# Установка переменной окружения для настроек проекта
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings') # Установка переменной окружения для настроек проекта
 
-# Создание экземпляра объекта Celery
-app = Celery('config')
+app = Celery('config')  # Создание экземпляра объекта Celery
 
-# Загрузка настроек из файла Django
-app.config_from_object('django.conf:settings', namespace='CELERY')
+app.config_from_object('django.conf:settings', namespace='CELERY')  # Загрузка настроек из файла Django
 
-# Автоматическое обнаружение и регистрация задач из файлов tasks.py в приложениях Django
-app.autodiscover_tasks()
+app.autodiscover_tasks()  # Автоматическое обнаружение и регистрация задач из файлов tasks.py в приложениях Django
