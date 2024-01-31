@@ -19,7 +19,7 @@ class TimeDeltaHabitValidator:
 
     def __call__(self, value):
         time_to_perform = value.get('time_to_perform')
-        if time_to_perform > timedelta(seconds=120):
+        if time_to_perform > 120:
             raise ValidationError('Время выполнения привычки не должно превышать 120 секунд!')
         return value
 

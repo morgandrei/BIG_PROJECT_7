@@ -19,7 +19,7 @@ class Habits(models.Model):
     related_habit = models.ForeignKey('self', on_delete=models.CASCADE, verbose_name='связанная привычка', **NULLABLE)
     frequency = models.CharField(choices=Frequency.choices, verbose_name='периодичность')
     reward = models.CharField(max_length=255, verbose_name='вознаграждение', **NULLABLE)
-    time_to_perform = models.DurationField(max_length=timedelta(seconds=120), verbose_name='время на выполнение')
+    time_to_perform = models.PositiveIntegerField(verbose_name='время на выполнение')
     is_public = models.BooleanField(default=False, verbose_name='признак публичности')
 
     def __str__(self):

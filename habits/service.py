@@ -15,11 +15,12 @@ def create_habits(habit):
         args=[habit.id]
     )
 
+
 def delete_habits(habit):
-    task_name = '' # такое же имя как в 13-строчке
+    task_name = ''  # такое же имя как в 13-строчке
     PeriodicTask.objects.filter(name=task_name).delete()
+
 
 def update_habits(habit):
     delete_habits(habit)
     create_habits(habit)
-
