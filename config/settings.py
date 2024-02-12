@@ -30,6 +30,8 @@ load_dotenv(dotenv_path=env_path)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_KEY')
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
@@ -145,9 +147,6 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = BASE_DIR / 'media'
-
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -200,10 +199,10 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 # Настройки для Celery
 CELERY_BEAT_SCHEDULE = {
-#    'blocking_inactive_users': {
-#        'task': 'users.tasks.blocking_inactive_users',  # Имя задачи
-#        'schedule': timedelta(minutes=1),  # Запускать задачу каждый день
-#    },
+    'every_day': {
+        'task': 'habit.tasks.every_day',  # Путь к задаче
+        'schedule': timedelta(minutes=1),  # Расписание выполнения задачи (каждую минуту)
+    },
 }
 
 CELERY_BROKER_URL = 'redis://localhost:6379'  # URL-адрес брокера Redis, который по умолчанию работает на порту 6379

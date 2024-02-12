@@ -1,27 +1,21 @@
-from datetime import timedelta
-
-from django.shortcuts import render
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
-
 from habits.models import Habits
 from habits.pagination import HabitsPagination
 from habits.permissions import IsOwner
 from habits.serializers import HabitsSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
+from habits.service import create_habits, update_habits, delete_habits
 
 
 class HabitCreateView(generics.CreateAPIView):
     serializer_class = HabitsSerializer
     permission_classes = [IsAuthenticated]
 
-
     def perform_create(self, serializer):
         new_habit = serializer.save()
         new_habit.owner = self.request.user
         new_habit.save()
-        # Добавить строчку расписания и задачи
+        create_habits(new_habit)
 
 
 class HabitsListView(generics.ListAPIView):
@@ -55,8 +49,8 @@ class HabitUpdateView(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated, IsOwner]
 
     def perform_update(self, serializer):
-        habit = serializer.save
-        #  Добавить обновление
+        habit = serializer.save()
+        update_habits(habit)
 
 
 class HabitDeleteView(generics.DestroyAPIView):
@@ -64,5 +58,6 @@ class HabitDeleteView(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwner]
 
     def perform_destroy(self, instance):
-        # Удаление напоминания привычки
+        delete_habits(instance)# Удаление напоминания привычки
         instance.delete()
+        delete_habits(instance)
