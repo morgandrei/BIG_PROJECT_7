@@ -96,12 +96,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DB_NAME'),  # Название БД
-        'USER': os.getenv('DB_USER'),  # Пользователь для подключения
-        'PASSWORD': os.getenv('BD_PASS'),  # Пароль для этого пользователя
-        'HOST': os.getenv('DB_HOST'),  # Адрес, на котором развернут сервер БД
-        'PORT': os.getenv('DB_PORT'),  # Порт, на котором работает сервер БД
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'mysecretpassword',
+        'HOST': 'db',
     }
 }
 
@@ -205,7 +204,7 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-CELERY_BROKER_URL = 'redis://localhost:6379'  # URL-адрес брокера Redis, который по умолчанию работает на порту 6379
+CELERY_BROKER_URL = 'redis://redis:6379'  # URL-адрес брокера Redis, который по умолчанию работает на порту 6379
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'  # URL-адрес брокера результатов, также Redis
 CELERY_TIMEZONE = 'Europe/Moscow'  # Часовой пояс для работы Celery
 CELERY_ACCEPT_CONTENT = ['json']
