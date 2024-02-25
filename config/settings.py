@@ -10,12 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-
 import os
 from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,7 +52,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'corsheaders',
     'django_celery_beat',
-    
+
     'users',
     'habits',
 
@@ -97,10 +95,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'mysecretpassword',
-        'HOST': 'db',
+        'NAME': os.environ.get('POSTGRES_DB'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': os.environ.get('POSTGRES_PORT'),
     }
 }
 
@@ -188,11 +187,11 @@ SIMPLE_JWT = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',  # Замените на адрес вашего фронтенд-сервера
-    ]
+]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://read-and-write.example.com",  # Замените на адрес вашего фронтенд-сервера и добавьте адрес бэкенд-сервера
-    ]
+]
 
 CORS_ALLOW_ALL_ORIGINS = False
 
@@ -204,8 +203,8 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-CELERY_BROKER_URL = 'redis://redis:6379'  # URL-адрес брокера Redis, который по умолчанию работает на порту 6379
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'  # URL-адрес брокера результатов, также Redis
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')  # URL-адрес брокера Redis, который по умолчанию работает на порту 6379
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND') # URL-адрес брокера результатов, также Redis
 CELERY_TIMEZONE = 'Europe/Moscow'  # Часовой пояс для работы Celery
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
